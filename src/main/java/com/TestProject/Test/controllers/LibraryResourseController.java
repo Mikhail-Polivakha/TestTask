@@ -1,7 +1,4 @@
-package com.TestProject.Test.Controllers;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+package com.TestProject.Test.controllers;
 
 //@RestController
 //@RequestMapping("/")

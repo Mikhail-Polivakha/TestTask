@@ -1,7 +1,7 @@
-package com.TestProject.Test.Controllers;
+package com.TestProject.Test.controllers;
 
 import com.TestProject.Test.BookService;
-import com.TestProject.Test.Exception.SourceNotFoundException;
+import com.TestProject.Test.exceptions.SourceNotFoundException;
 import com.TestProject.Test.domain.Book;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -9,7 +9,6 @@ import io.swagger.annotations.Contact;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController

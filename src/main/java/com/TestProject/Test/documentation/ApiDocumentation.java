@@ -1,4 +1,4 @@
-package com.TestProject.Test.Documentation;
+package com.TestProject.Test.documentation;
 
 import springfox.documentation.service.ApiInfo;
 

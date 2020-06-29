@@ -1,4 +1,4 @@
-package com.TestProject.Test.Exception;
+package com.TestProject.Test.exceptions;
 
 import io.swagger.annotations.ApiModel;
 import org.springframework.http.HttpStatus;

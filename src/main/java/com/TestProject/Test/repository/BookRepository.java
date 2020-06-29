@@ -1,4 +1,4 @@
-package com.TestProject.Test.Repository;
+package com.TestProject.Test.repository;
 
 import com.TestProject.Test.domain.Book;
 import org.springframework.data.repository.CrudRepository;

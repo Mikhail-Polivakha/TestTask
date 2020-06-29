@@ -1,6 +1,6 @@
 package com.TestProject.Test;
 
-import com.TestProject.Test.Controllers.BookResourseController;
+import com.TestProject.Test.controllers.BookResourseController;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;

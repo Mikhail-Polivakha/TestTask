@@ -1,6 +1,6 @@
 package com.TestProject.Test;
 
-import com.TestProject.Test.Documentation.ApiDocumentation;
+import com.TestProject.Test.documentation.ApiDocumentation;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;

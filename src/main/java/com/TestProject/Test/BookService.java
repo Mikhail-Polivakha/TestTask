@@ -1,7 +1,7 @@
 package com.TestProject.Test;
 
-import com.TestProject.Test.Exception.SourceNotFoundException;
-import com.TestProject.Test.Repository.BookRepository;
+import com.TestProject.Test.exceptions.SourceNotFoundException;
+import com.TestProject.Test.repository.BookRepository;
 import com.TestProject.Test.domain.Book;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
