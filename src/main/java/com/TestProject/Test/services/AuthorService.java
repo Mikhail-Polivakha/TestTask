@@ -1,5 +1,6 @@
 package com.TestProject.Test.services;
 
+import com.TestProject.Test.domain.Author;
 import com.TestProject.Test.domain.Book;
 import com.TestProject.Test.repository.AuthorRepository;
 import com.TestProject.Test.repository.BookRepository;
@@ -26,5 +27,18 @@ public class AuthorService {
 
     public List<Book> getAllBooksClaimedToAuthorByLastName(String lastName) {
         return new ArrayList<>();
+    }
+
+    public void addAuthorToTheBook(Author author, String bookID) {
+        //TODO: Implment this method allows us to append passed author to book with id equals as passed
+    }
+
+    public void deleteAuthor(String bookID, String authorId) {
+        //TODO: Implment this method allows us to delete passed author has the smae id as passed
+        // from the book with id equals as passed
+    }
+
+    public void updateAuthor(String bookId, Author author) {
+        //TODO: Implment this method allows us to update passed author in book, which has id equals as passed
     }
 }
