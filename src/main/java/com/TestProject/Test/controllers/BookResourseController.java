@@ -1,6 +1,6 @@
 package com.TestProject.Test.controllers;
 
-import com.TestProject.Test.BookService;
+import com.TestProject.Test.services.BookService;
 import com.TestProject.Test.exceptions.SourceNotFoundException;
 import com.TestProject.Test.domain.Book;
 import io.swagger.annotations.ApiOperation;
@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/")
+@RequestMapping("/Library")
 public class BookResourseController {
 
     @Autowired
@@ -22,9 +22,9 @@ public class BookResourseController {
     // the book not from some source root 'Library', but from certain Library
 
 //    @RequestMapping(method = RequestMethod.GET, value = "/Library/{id}")
-    @GetMapping(value = "/Library/{id}")
+    @GetMapping(value = "/{id}")
     @ApiOperation(value = "Get Certain book from repository",
-                notes = "Using the GET Mapping  for '/Library/{id}' id - book primary key you can fetch proper book" +
+                notes = "Using the GET Mapping  for '/{id}' id - book primary key you can fetch proper book" +
                         "by calling getBookById() method from BookService Service",
                 response = Contact.class)
         public Book getBook(@ApiParam(value = "Input the book ID (String type) the book you want to retrieve",
@@ -43,7 +43,7 @@ public class BookResourseController {
                         "Returning type: List<Book>. Takes no argument",
                 response = Contact.class)
 //    @RequestMapping(method = RequestMethod.GET, value = "/Library")
-    @GetMapping(value = "/Library")
+    @GetMapping(value = "/")
     public List<Book> getAllbooks() {
         return bookService.getAllBooks();
     }
@@ -55,7 +55,7 @@ public class BookResourseController {
                         "request body must contain Book you want to save. Returns void.",
                 response = Contact.class)
 //    @RequestMapping(method = RequestMethod.POST, value = "/Library")
-    @PostMapping(value = "/Library")
+    @PostMapping(value = "/")
     public void saveBook(@ApiParam(value = "Takes a parameter - book instance (stored in request Body) you want to Save")
                              @RequestBody Book book) {
         bookService.saveBook(book);
@@ -66,7 +66,7 @@ public class BookResourseController {
                         "Request Body must store the book you want to delete from repository",
                 response = Contact.class)
 //    @RequestMapping(method = RequestMethod.DELETE, value = "/Library")
-    @DeleteMapping(value = "/Library")
+    @DeleteMapping(value = "/")
     public void deleteBook(@ApiParam(value = "Takes a parameter - book instance (stored in Request Body) you want to delete")
                                @RequestBody Book bookTodelete) {
         try {
@@ -84,7 +84,7 @@ public class BookResourseController {
                         "fields (I mean, equals fields with the updatedBook)",
                 response = Contact.class)
 //    @RequestMapping(method = RequestMethod.PUT, value = "/Lirary/{id}")
-    @PutMapping(value = "/Library")
+    @PutMapping(value = "/")
     public void updateBookInformation(@RequestBody Book book) {
         bookService.updateBook(book);
     }

@@ -15,15 +15,15 @@ public class Author {
     private String id;
 
     @ApiModelProperty(notes = "FirstName of the author")
-    private String FirstName;
+    private String firstName;
 
     @ApiModelProperty(notes = "LastName of the author")
-    private String LastName;
+    private String lastName;
 
     public Author(String id, String firstName, String lastName) {
         this.id = id;
-        FirstName = firstName;
-        LastName = lastName;
+        this.firstName = firstName;
+        this.lastName = lastName;
     }
 
     public Author() {
@@ -38,18 +38,18 @@ public class Author {
     }
 
     public String getFirstName() {
-        return FirstName;
+        return firstName;
     }
 
     public void setFirstName(String firstName) {
-        FirstName = firstName;
+        this.firstName = firstName;
     }
 
     public String getLastName() {
-        return LastName;
+        return lastName;
     }
 
     public void setLastName(String lastName) {
-        LastName = lastName;
+        this.lastName = lastName;
     }
 }
