@@ -22,7 +22,7 @@ public class AuthorController {
                 notes = "Using GET Mapping, method takes the author`s ID as PathVariable, and return" +
                         "List<Books> written by author, which has same ID as passed",
                 response = Contact.class)
-    public List<Book> getAllBooksByAuthorsId(@PathVariable String id) {
+    public List<Author> getAllBooksByAuthorsId(@PathVariable String id) {
         return authorService.getAllAuthors(id);
     }
 
@@ -31,7 +31,7 @@ public class AuthorController {
             notes = "Using GET Mapping, method takes the author`s name as PathVariable, and return" +
                     "List<Books> written by author, which has same name as passed",
             response = Contact.class)
-    public List<Book> getAllBooksAuthorsFirstName(@PathVariable String firstName) {
+    public List<Author> getAllBooksAuthorsFirstName(@PathVariable String firstName) {
         return authorService.getAllAuthorsOfBookByID(firstName);
     }
 
@@ -40,7 +40,7 @@ public class AuthorController {
             notes = "Using GET Mapping, method takes the author`s Surname as PathVariable, and return" +
                     "List<Books> written by author, which has same Surname as passed",
             response = Contact.class)
-    public List<Book> getAllBooksAuthorsLastName(@PathVariable String lastName) {
+    public List<Author> getAllBooksAuthorsLastName(@PathVariable String lastName) {
         return authorService.getAllBooksPublishedInGenreByName(lastName);
     }
 
