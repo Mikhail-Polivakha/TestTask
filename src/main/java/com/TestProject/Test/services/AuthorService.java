@@ -15,30 +15,33 @@ import java.util.List;
 public class AuthorService {
 
     @Autowired
-    BookRepository bookRepository;
+    AuthorRepository authorRepository;
 
-    public List<Author> getAllAuthors(String id) {
-        return new ArrayList<>();
+    public List<Author> getAllAuthors() {
+        return (List<Author>) authorRepository.findAll();
     }
 
-    public List<Author> getAllAuthorsOfBookByID(String firstName) {
-        return new ArrayList<>();
+    public Author getAuthorById(String id) {
+        return authorRepository.findById(id).orElse(new Author());
     }
 
-    public List<Author> getAllBooksPublishedInGenreByName(String lastName) {
-        return new ArrayList<>();
+    public void addAuthorToTheBook(Author author) {
+        authorRepository.save(author);
     }
 
-    public void addAuthorToTheBook(Author author, String bookID) {
-        //TODO: Implment this method allows us to append passed author to book with id equals as passed
+    public void deleteAuthor(Author author) {
+        authorRepository.delete(author);
     }
 
-    public void deleteAuthor(String bookID, String authorId) {
-        //TODO: Implment this method allows us to delete passed author has the smae id as passed
-        // from the book with id equals as passed
+    public void updateAuthor(Author author) {
+        authorRepository.save(author);
     }
 
-    public void updateAuthor(String bookId, Author author) {
-        //TODO: Implment this method allows us to update passed author in book, which has id equals as passed
+    public List<Author> getAuthorsByFirstName(String firstName) {
+        return (List<Author>) authorRepository.findAuthorByFirstName(firstName);
+    }
+
+    public List<Author> getAuthoursByLastName(String lastName) {
+        return (List<Author>) authorRepository.findAuthorByLastName(lastName);
     }
 }
