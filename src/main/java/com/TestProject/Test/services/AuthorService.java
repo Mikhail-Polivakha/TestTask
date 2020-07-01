@@ -17,15 +17,15 @@ public class AuthorService {
     @Autowired
     BookRepository bookRepository;
 
-    public List<Book> getAllBooksClaimedToAuthorById(String id) {
+    public List<Author> getAllAuthors(String id) {
         return new ArrayList<>();
     }
 
-    public List<Book> getAllBooksClaimedToAuthorByFirstName(String firstName) {
+    public List<Author> getAllAuthorsOfBookByID(String firstName) {
         return new ArrayList<>();
     }
 
-    public List<Book> getAllBooksClaimedToAuthorByLastName(String lastName) {
+    public List<Author> getAllBooksPublishedInGenreByName(String lastName) {
         return new ArrayList<>();
     }
 

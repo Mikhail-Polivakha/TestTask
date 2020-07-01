@@ -2,10 +2,8 @@ package com.TestProject.Test.domain;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import io.swagger.annotations.ApiOperation;
 
 import javax.persistence.*;
-import java.util.ArrayList;
 import java.util.List;
 
 @Entity(name = "Books")
@@ -14,10 +12,9 @@ public class Book {
 
 
     @Id
-    @ApiModelProperty(notes = "Id (as a primary key to access the proper book in DB. You should insert " +
-            "it manualy, cause it is not incrementing auto)")
-//    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private String id;
+    @ApiModelProperty(notes = "Id (as a primary key to access the proper book in DB).")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    private Long id;
 
     @OneToMany
     @ApiModelProperty(notes = "The author of the book")
@@ -48,11 +45,11 @@ public class Book {
 
     }
 
-    public String getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

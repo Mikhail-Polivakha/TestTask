@@ -1,6 +1,7 @@
 package com.TestProject.Test.services;
 
 import com.TestProject.Test.domain.Book;
+import com.TestProject.Test.domain.Genre;
 import com.TestProject.Test.repository.BookRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,5 +19,9 @@ public class GenreService {
 
     public List<Book> getAllBooksPublishedInGenre(String name) {
         return new ArrayList<>();
+    }
+
+    public void saveGenre(Genre genre, String bookId) {
+        //TODO: Implement the method allow to save genre in some book`s Genre list
     }
 }

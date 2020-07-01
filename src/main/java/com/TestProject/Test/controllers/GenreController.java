@@ -1,14 +1,12 @@
 package com.TestProject.Test.controllers;
 
 import com.TestProject.Test.domain.Book;
+import com.TestProject.Test.domain.Genre;
 import com.TestProject.Test.services.GenreService;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.models.Contact;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -27,4 +25,11 @@ public class GenreController {
     public List<Book> getAllbooksByGenre(@PathVariable String name) {
         return genreService.getAllBooksPublishedInGenre(name);
     }
+
+    @PostMapping("/{bookId}")
+    public void saveGenreInCertainBook(@RequestBody Genre genre, @PathVariable String bookId) {
+        genreService.saveGenre(genre, bookId);
+    }
+
+    @DeleteMapping("/")
 }

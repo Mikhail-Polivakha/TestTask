@@ -3,17 +3,17 @@ package com.TestProject.Test.domain;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @ApiModel(description = "Publishing House as an object with all required stuff")
 public class PublishingHouse {
 
     @Id
-    @ApiModelProperty(notes = "Id - primary key to access the proper PublishingHouse in DB. You should insert" +
-            "it manualy, cause it is not incrementing auto")
-    private String id;
+    @ApiModelProperty(notes = "Id - primary key to access the proper PublishingHouse in DB")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    private Long id;
 
     @ApiModelProperty(notes = "Label of the PublishingHouse")
     private String label;
@@ -21,20 +21,29 @@ public class PublishingHouse {
     @ApiModelProperty(notes = "Description of the Genre (Bullshit mostly, but I have to append some field)")
     private String description;
 
+    @ManyToMany
+    private List<Genre> genres;
+
+    @ManyToMany
+    private List<Author> authors;
+
+    @ManyToMany
+    private List<Book> books;
+
     public PublishingHouse() {
     }
 
-    public PublishingHouse(String id, String label, String description) {
+    public PublishingHouse(Long id, String label, String description) {
         this.id = id;
         this.label = label;
         this.description = description;
     }
 
-    public String getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

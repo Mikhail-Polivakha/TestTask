@@ -3,16 +3,17 @@ package com.TestProject.Test.domain;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @ApiModel(description = "Author as an object with all required stuff")
 public class Author {
 
     @Id
-    @ApiModelProperty(notes = "Id (Primary key od th certain Author). You have to insert it manually")
-    private String id;
+    @ApiModelProperty(notes = "Id (Primary key od th certain Author)")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    private Long id;
 
     @ApiModelProperty(notes = "FirstName of the author")
     private String firstName;
@@ -20,7 +21,16 @@ public class Author {
     @ApiModelProperty(notes = "LastName of the author")
     private String lastName;
 
-    public Author(String id, String firstName, String lastName) {
+    @ManyToMany
+    private List<Genre> genre;
+
+    @ManyToMany
+    private List<PublishingHouse> publishingHouse;
+
+    @ManyToMany
+    private List<Book> books;
+
+    public Author(Long id, String firstName, String lastName) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -29,11 +39,9 @@ public class Author {
     public Author() {
     }
 
-    public String getId() {
-        return id;
-    }
+    public Long getId() { return id; }
 
-    public void setId(String id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
