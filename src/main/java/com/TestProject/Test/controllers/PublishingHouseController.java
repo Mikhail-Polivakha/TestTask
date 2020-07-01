@@ -1,13 +1,16 @@
 package com.TestProject.Test.controllers;
 
 import com.TestProject.Test.domain.PublishingHouse;
+import com.TestProject.Test.dto_layer.PublishingHouseDTO;
 import com.TestProject.Test.services.PublishingHouseService;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.models.Contact;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/publishingHouses")
@@ -16,21 +19,28 @@ public class PublishingHouseController {
     @Autowired
     PublishingHouseService publishingHouseService;
 
+    @Autowired
+    ModelMapper modelMapper;
+
     @GetMapping("/id{publishingHouseId}")
     @ApiOperation(value = "Searching Publisher House by using the Publishing House`s id",
             notes = "Using GET Mapping, method takes the Publishing House`s id as PathVariable, and return" +
                     "PublishingHouse Object, which has same id as passed",
             response = Contact.class)
-    public PublishingHouse getPublishingHouseById(@PathVariable int publishingHouseID) {
-        return publishingHouseService.getPublishingHouseById(publishingHouseID);
+    public PublishingHouseDTO getPublishingHouseById(@PathVariable int publishingHouseID) {
+        return modelMapper.map(publishingHouseService.getPublishingHouseById(publishingHouseID),
+                PublishingHouseDTO.class);
     }
 
     @GetMapping("/")
     @ApiOperation(value = "Getting whole Publishing Houses from repository",
             notes = "Using GET Mapping, method return List<PublishingHouses> exists in the Repository",
             response = Contact.class)
-    public List<PublishingHouse> getAllPublishingHouses() {
-        return publishingHouseService.getAllPubishingHouses();
+    public List<PublishingHouseDTO> getAllPublishingHouses() {
+        return publishingHouseService.getAllPubishingHouses()
+                .stream()
+                .map(this::convertPublishingHouseToDTO)
+                .collect(Collectors.toList());
     }
 
     @PostMapping("/")
@@ -59,5 +69,9 @@ public class PublishingHouseController {
             response = Contact.class)
     public void deletePublishingHouse(@RequestBody PublishingHouse publishingHouse) {
         publishingHouseService.deletePublishigHouseFromRepository(publishingHouse);
+    }
+
+    private PublishingHouseDTO convertPublishingHouseToDTO(PublishingHouse publishingHouse) {
+        return modelMapper.map(publishingHouse, PublishingHouseDTO.class);
     }
 }

@@ -29,7 +29,7 @@ public class TestApplication {
 	}
 
 	@Bean
-	public static ModelMapper modelMapper() {
+	public ModelMapper modelMapper() {
 		return new ModelMapper();
 	}
 }

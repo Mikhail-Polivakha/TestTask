@@ -1,13 +1,16 @@
 package com.TestProject.Test.controllers;
 
 import com.TestProject.Test.domain.Genre;
+import com.TestProject.Test.dto_layer.GenreDTO;
 import com.TestProject.Test.services.GenreService;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.models.Contact;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/genres")
@@ -16,12 +19,18 @@ public class GenreController {
     @Autowired
     GenreService genreService;
 
+    @Autowired
+    ModelMapper modelMapper;
+
     @GetMapping("/name{name}")
     @ApiOperation(value = "Searching whole Genres (Notes contains better explanation)",
             notes = "Using GET Mapping, method takes the return List<Genre> exist in DB",
             response = Contact.class)
-    public List<Genre> getAllGenres() {
-        return genreService.getAllGenres();
+    public List<GenreDTO> getAllGenres() {
+        return genreService.getAllGenres()
+                .stream()
+                .map(this::convertGenreToDTO)
+                .collect(Collectors.toList());
     }
 
     @GetMapping("/{id}")
@@ -29,8 +38,8 @@ public class GenreController {
                 notes = "Uisng GET Mapping, method finds certain genre using genreID and return" +
                         "Genre object",
                 response = Contact.class)
-    public Genre getCertianGenre(@RequestBody Genre genre, @PathVariable int genreID) {
-        return genreService.getGenre(genre, genreID);
+    public GenreDTO getCertianGenre(@RequestBody Genre genre, @PathVariable int genreID) {
+        return modelMapper.map(genreService.getGenre(genre, genreID), GenreDTO.class);
     }
 
     @DeleteMapping("/{genreId}")
@@ -58,5 +67,9 @@ public class GenreController {
             response = Contact.class)
     public void updateGenre(@RequestBody Genre genre, int genreId) {
         genreService.updateGenre(genre, genreId);
+    }
+
+    private GenreDTO convertGenreToDTO(Genre genre) {
+        return modelMapper.map(genre, GenreDTO.class);
     }
 }

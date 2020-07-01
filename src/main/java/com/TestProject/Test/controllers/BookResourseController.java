@@ -1,15 +1,18 @@
 package com.TestProject.Test.controllers;
 
+import com.TestProject.Test.dto_layer.BookDTO;
 import com.TestProject.Test.services.BookService;
 import com.TestProject.Test.exceptions.SourceNotFoundException;
 import com.TestProject.Test.domain.Book;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import io.swagger.annotations.Contact;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/Library")
@@ -17,6 +20,9 @@ public class BookResourseController {
 
     @Autowired
     BookService bookService;
+
+    @Autowired
+    ModelMapper modelMapper;
 
     //TODO: Expand the functional by getting, posing, deliting and e.t.c
     // the book not from some source root 'Library', but from certain Library
@@ -27,13 +33,13 @@ public class BookResourseController {
                 notes = "Using the GET Mapping  for '/{id}' id - book primary key you can fetch proper book" +
                         "by calling getBookById() method from BookService Service",
                 response = Contact.class)
-        public Book getBook(@ApiParam(value = "Input the book ID (String type) the book you want to retrieve",
+        public BookDTO getBook(@ApiParam(value = "Input the book ID (String type) the book you want to retrieve",
                         required = true)
             @PathVariable String id) {
         try {
-            return bookService.getBookById(id);
+            return modelMapper.map(bookService.getBookById(id), BookDTO.class);
         } catch (SourceNotFoundException e) {
-            return new Book();
+            return new BookDTO();
         }
     }
 
@@ -44,8 +50,11 @@ public class BookResourseController {
                 response = Contact.class)
 //    @RequestMapping(method = RequestMethod.GET, value = "/Library")
     @GetMapping(value = "/")
-    public List<Book> getAllbooks() {
-        return bookService.getAllBooks();
+    public List<BookDTO> getAllbooks() {
+        return bookService.getAllBooks()
+                .stream()
+                .map(this::convertBookToDTO)
+                .collect(Collectors.toList());
     }
 
 
@@ -87,5 +96,9 @@ public class BookResourseController {
     @PutMapping(value = "/")
     public void updateBookInformation(@RequestBody Book book) {
         bookService.updateBook(book);
+    }
+
+    private BookDTO convertBookToDTO(Book book) {
+        return modelMapper.map(book, BookDTO.class);
     }
 }

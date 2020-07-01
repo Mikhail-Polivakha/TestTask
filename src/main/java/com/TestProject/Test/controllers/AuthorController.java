@@ -20,7 +20,8 @@ public class AuthorController {
     @Autowired
     AuthorService authorService;
 
-    ModelMapper modelMapper = TestApplication.modelMapper();
+    @Autowired
+    ModelMapper modelMapper;
 
     @GetMapping("/")
     @ApiOperation(value = "Getting whole Authors from repository",
