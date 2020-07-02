@@ -8,11 +8,11 @@ import java.util.List;
 
 public class PublishingHouseDTO {
 
-    private List<Book> books;
+    private List<BookDTO> books;
 
-    private List<Genre> genres;
+    private List<GenreDTO> genres;
 
-    private List<Author> authors;
+    private List<AuthorDTO> authors;
 
     private String label;
 

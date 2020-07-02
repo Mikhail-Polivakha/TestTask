@@ -34,7 +34,7 @@ public class AuthorController {
                 .collect(Collectors.toList());
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/id{id}")
     @ApiOperation(value = "Searching Certain author by Author`s ID",
             notes = "Using GET Mapping, method takes the author`s id as PathVariable, and return" +
                     "Author, which has same id as passed",
@@ -45,7 +45,7 @@ public class AuthorController {
         return authorDTO;
     }
 
-    @GetMapping("/{firstName}")
+    @GetMapping("/firstname{firstName}")
     @ApiOperation(value = "Getting Authors by firstName",
             notes = "Using GET Mapping, method takes the author`s firstName as PathVariable, and return" +
                     "List<Author>, which has same firstName as passed",
@@ -57,7 +57,7 @@ public class AuthorController {
                 .collect(Collectors.toList());
     }
 
-    @GetMapping("/{lastName}")
+    @GetMapping("/lastname{lastName}")
     @ApiOperation(value = "Getting all Authors by using lastName",
             notes = "Using GET Mapping, method takes the Author`s lastName as PathVariable, and " +
                     "return List<Author> - all the Authors have the same LastName",

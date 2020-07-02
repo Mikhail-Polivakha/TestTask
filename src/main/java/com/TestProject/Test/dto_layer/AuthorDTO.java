@@ -11,9 +11,9 @@ public class AuthorDTO {
     
     private String lastName;
 
-    private List<Genre> genre;
+    private List<GenreDTO> genre;
 
-    private List<PublishingHouse> publishingHouse;
+    private List<PublishingHouseDTO> publishingHouse;
 
-    private List<Book> books;
+    private List<BookDTO> books;
 }

@@ -10,9 +10,9 @@ public class BookDTO {
 
     private String title;
 
-    private List<Author> authors;
+    private List<AuthorDTO> authors;
 
-    private List<Genre> genres;
+    private List<GenreDTO> genres;
 
-    private List<PublishingHouse> publishingHouses;
+    private List<PublishingHouseDTO> publishingHouses;
 }
