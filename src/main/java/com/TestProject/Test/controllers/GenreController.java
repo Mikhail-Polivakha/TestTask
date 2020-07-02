@@ -1,7 +1,7 @@
 package com.TestProject.Test.controllers;
 
 import com.TestProject.Test.domain.Genre;
-import com.TestProject.Test.dto_layer.GenreDTO;
+import com.TestProject.Test.dto.GenreDTO;
 import com.TestProject.Test.services.GenreService;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.models.Contact;

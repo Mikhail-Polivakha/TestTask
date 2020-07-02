@@ -1,5 +1,8 @@
 package com.TestProject.Test.services;
 
+import com.TestProject.Test.domain.Author;
+import com.TestProject.Test.domain.Genre;
+import com.TestProject.Test.domain.PublishingHouse;
 import com.TestProject.Test.exceptions.SourceNotFoundException;
 import com.TestProject.Test.repository.BookRepository;
 import com.TestProject.Test.domain.Book;
@@ -35,5 +38,15 @@ public class BookService {
         this.bookRepository.delete(bookToDelete);
     }
 
-    
+    public Book getBookByAuthors(List<Author> authors) {
+        return this.bookRepository.findByAuthors(authors);
+    }
+
+    public Book getBookByGenres(List<Genre> genres) {
+        return this.bookRepository.findByGenres(genres);
+    }
+
+    public Book getBookByPublishingHouses(List<PublishingHouse> publishingHouses) {
+        return this.bookRepository.findByPublishingHouses(publishingHouses);
+    }
 }

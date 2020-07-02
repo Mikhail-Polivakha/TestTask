@@ -1,8 +1,4 @@
-package com.TestProject.Test.dto_layer;
-
-import com.TestProject.Test.domain.Author;
-import com.TestProject.Test.domain.Book;
-import com.TestProject.Test.domain.Genre;
+package com.TestProject.Test.dto;
 
 import java.util.List;
 

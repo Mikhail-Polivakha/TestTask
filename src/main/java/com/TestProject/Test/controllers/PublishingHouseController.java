@@ -1,7 +1,7 @@
 package com.TestProject.Test.controllers;
 
 import com.TestProject.Test.domain.PublishingHouse;
-import com.TestProject.Test.dto_layer.PublishingHouseDTO;
+import com.TestProject.Test.dto.PublishingHouseDTO;
 import com.TestProject.Test.services.PublishingHouseService;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.models.Contact;

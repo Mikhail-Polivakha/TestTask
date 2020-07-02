@@ -59,6 +59,7 @@ public class AuthorControllerTest {
     }
 
     @Test
+    @Disabled
     @DisplayName("Test post the author to external server")
     void testPostAuthorRequest() throws Exception {
         RequestBuilder requestBuilder = MockMvcRequestBuilders.post("/");
@@ -74,6 +75,7 @@ public class AuthorControllerTest {
     }
 
     @Test
+    @Disabled
     @DisplayName("Test deleting the Author from repository")
     void testDeleteAuthorFromRepository() throws Exception {
         RequestBuilder requestBuilder = MockMvcRequestBuilders.delete("/");

@@ -1,8 +1,7 @@
 package com.TestProject.Test.controllers;
 
-import com.TestProject.Test.TestApplication;
 import com.TestProject.Test.domain.Author;
-import com.TestProject.Test.dto_layer.AuthorDTO;
+import com.TestProject.Test.dto.AuthorDTO;
 import com.TestProject.Test.services.AuthorService;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.models.Contact;

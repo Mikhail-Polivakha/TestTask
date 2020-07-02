@@ -1,6 +1,11 @@
 package com.TestProject.Test.controllers;
 
-import com.TestProject.Test.dto_layer.BookDTO;
+import com.TestProject.Test.domain.Author;
+import com.TestProject.Test.domain.Genre;
+import com.TestProject.Test.domain.PublishingHouse;
+import com.TestProject.Test.dto.BookDTO;
+import com.TestProject.Test.dto.GenreDTO;
+import com.TestProject.Test.dto.PublishingHouseDTO;
 import com.TestProject.Test.services.BookService;
 import com.TestProject.Test.exceptions.SourceNotFoundException;
 import com.TestProject.Test.domain.Book;
@@ -100,5 +105,38 @@ public class BookResourseController {
 
     private BookDTO convertBookToDTO(Book book) {
         return modelMapper.map(book, BookDTO.class);
+    }
+
+    @GetMapping
+    @ApiOperation(value = "Get Certain book from repository using the Authors",
+            notes = "Using the GET Mapping, you can fetch certain book using the List<Author>" +
+                    "by calling getBookByAuthors() method from BookService Service",
+            response = Contact.class)
+    public BookDTO getBookByAuthors(@RequestBody List<Author> authors) {
+        return modelMapper.map(
+                this.bookService.getBookByAuthors(authors),
+                BookDTO.class);
+    }
+
+    @GetMapping
+    @ApiOperation(value = "Get Certain book from repository using the Genres",
+            notes = "Using the GET Mapping, you can fetch certain book using the List<Genre>" +
+                    "by calling getBookByGenres() method from BookService Service",
+            response = Contact.class)
+    public GenreDTO getBookByGenres(@RequestBody List<Genre> genres) {
+        return modelMapper.map(
+                this.bookService.getBookByGenres(genres),
+                GenreDTO.class);
+    }
+
+    @GetMapping
+    @ApiOperation(value = "Get Certain book from repository using the PublishingHouses",
+            notes = "Using the GET Mapping, you can fetch certain book using the List<PublishingHouse>" +
+                    "by calling getBookByPublishingHouses() method from BookService Service",
+            response = Contact.class)
+    public PublishingHouseDTO getBookByPublishingHouses(@RequestBody List<PublishingHouse> publishingHouses) {
+        return modelMapper.map(
+                this.bookService.getBookByPublishingHouses(publishingHouses),
+                PublishingHouseDTO.class);
     }
 }
