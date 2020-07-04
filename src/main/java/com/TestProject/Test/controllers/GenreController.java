@@ -1,8 +1,11 @@
 package com.TestProject.Test.controllers;
 
+import com.TestProject.Test.domain.Author;
 import com.TestProject.Test.domain.Genre;
+import com.TestProject.Test.domain.PublishingHouse;
 import com.TestProject.Test.dto.GenreDTO;
 import com.TestProject.Test.services.GenreService;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.models.Contact;
 import org.modelmapper.ModelMapper;
@@ -67,6 +70,30 @@ public class GenreController {
             response = Contact.class)
     public void updateGenre(@RequestBody Genre genre, int genreId) {
         genreService.updateGenre(genre, genreId);
+    }
+
+    @GetMapping("/getByGenres")
+    @ApiOperation(value = "Getting whole Genres by using List<PublishingHouses>",
+                notes = "Using GET Mapping, method provides to fetch all the Genres declared in " +
+                        "passed Publishing Houses (Inputs as List<PublishingHouses>)",
+                response = Contact.class)
+    public List<GenreDTO> getGenresByPublishingHouses(List<PublishingHouse> publishingHouses) {
+        return genreService.getGenresByPublishingHouses(publishingHouses)
+                .stream()
+                .map(genre -> convertGenreToDTO(genre))
+                .collect(Collectors.toList());
+    }
+
+    @GetMapping("/getByAuthors")
+    @ApiOperation(value = "Getting all Genres usage by some particular Authors",
+                notes = "Using GET Mapping, method provide to fetch Genres from repository have the same" +
+                        "List<Author> passed in param. This Current method return List<GenreDTO>",
+                response = Contact.class)
+    public List<GenreDTO> getGenreByAuthors(List<Author> authors) {
+        return genreService.getGenreByAuthor(authors)
+                .stream()
+                .map(genre -> convertGenreToDTO(genre))
+                .collect(Collectors.toList());
     }
 
     private GenreDTO convertGenreToDTO(Genre genre) {

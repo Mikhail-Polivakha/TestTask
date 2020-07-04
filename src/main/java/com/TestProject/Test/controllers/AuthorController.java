@@ -98,7 +98,7 @@ public class AuthorController {
         authorService.updateAuthor(author);
     }
 
-    @GetMapping("/publishingHouses")
+    @GetMapping("/getBypublishingHouses")
     @ApiOperation(value = "Get Author by using PublishingHouses",
                 notes = "Using GET Mapping, method return the List of the Authors accomplish" +
                         "publishing in certain stuff of the PublishingHouses, given in the RequestBody",
@@ -110,13 +110,20 @@ public class AuthorController {
                 .collect(Collectors.toList());
     }
 
-    @GetMapping
+    @GetMapping("/getBygenres")
+    @ApiOperation(value = "Getting Authors by using the List<Genre>",
+                notes = "Using GET Mapping, method allow to fetch the data from repository by using the" +
+                        "List<Genre> in the Request Body. Return all the Authors have publications in" +
+                        "passed Genres",
+                response = Contact.class)
     public List<AuthorDTO> getAuthorsByGenres(@RequestBody List<Genre> genres) {
         return authorService.getAuthorsByGenres(genres)
                 .stream()
                 .map(author -> convertAuthorToDTO(author))
                 .collect(Collectors.toList());
     }
+
+
 
     public AuthorDTO convertAuthorToDTO(Author author) {
         return modelMapper.map(author, AuthorDTO.class);

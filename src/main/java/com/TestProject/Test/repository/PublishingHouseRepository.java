@@ -8,7 +8,7 @@ import org.springframework.data.repository.CrudRepository;
 import java.util.List;
 
 public interface PublishingHouseRepository extends CrudRepository<PublishingHouse, Integer> {
-    public List<Iterable> findByLabel(String label);
-    public List<Iterable> findByAuthors(List<Author> authors);
-    public List<Iterable> findByGenres(List<Genre> genres);
+    public Iterable<PublishingHouse> findByLabel(String label);
+    public Iterable<PublishingHouse> findByAuthors(List<Author> authors);
+    public Iterable<PublishingHouse> findByGenres(List<Genre> genres);
 }

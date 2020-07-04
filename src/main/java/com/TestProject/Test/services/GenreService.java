@@ -1,13 +1,12 @@
 package com.TestProject.Test.services;
 
-import com.TestProject.Test.domain.Book;
+import com.TestProject.Test.domain.Author;
 import com.TestProject.Test.domain.Genre;
-import com.TestProject.Test.repository.BookRepository;
+import com.TestProject.Test.domain.PublishingHouse;
 import com.TestProject.Test.repository.GenreRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -15,8 +14,6 @@ public class GenreService {
 
     @Autowired
     GenreRepository genreRepository;
-
-    //TODO: Implement the method below. Expected behavior: methods return all books published in certain genre
 
     public List<Genre> getAllGenres() {
         return (List<Genre>) genreRepository.findAll();
@@ -36,5 +33,13 @@ public class GenreService {
 
     public void updateGenre(Genre genre, int genreId) {
         genreRepository.save(genreRepository.findById(genreId).orElse(new Genre()));
+    }
+
+    public List<Genre> getGenresByPublishingHouses(List<PublishingHouse> publishingHouses) {
+        return (List<Genre>) genreRepository.findByPublishingHouses(publishingHouses);
+    }
+
+    public List<Genre> getGenreByAuthor(List<Author> authors) {
+        return (List<Genre>) genreRepository.findByAuthors(authors);
     }
 }
