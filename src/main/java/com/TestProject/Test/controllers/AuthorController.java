@@ -1,6 +1,8 @@
 package com.TestProject.Test.controllers;
 
 import com.TestProject.Test.domain.Author;
+import com.TestProject.Test.domain.Genre;
+import com.TestProject.Test.domain.PublishingHouse;
 import com.TestProject.Test.dto.AuthorDTO;
 import com.TestProject.Test.services.AuthorService;
 import io.swagger.annotations.ApiOperation;
@@ -92,8 +94,28 @@ public class AuthorController {
             notes = "Using PUT Mapping, method update information about the author has the" +
                     "same id as Author Obeject, which was passed in Request Body",
             response = Contact.class)
-    public void updateTheAuthorbyBookId(@RequestBody Author author) {
+    public void updateTheAuthor(@RequestBody Author author) {
         authorService.updateAuthor(author);
+    }
+
+    @GetMapping("/publishingHouses")
+    @ApiOperation(value = "Get Author by using PublishingHouses",
+                notes = "Using GET Mapping, method return the List of the Authors accomplish" +
+                        "publishing in certain stuff of the PublishingHouses, given in the RequestBody",
+                response = Contact.class)
+    public List<AuthorDTO> getAuthorsByPublishingHouses(@RequestBody List<PublishingHouse> publishingHouses) {
+        return authorService.getAuthorsByPublishingHouses(publishingHouses)
+                .stream()
+                .map(this::convertAuthorToDTO)
+                .collect(Collectors.toList());
+    }
+
+    @GetMapping
+    public List<AuthorDTO> getAuthorsByGenres(@RequestBody List<Genre> genres) {
+        return authorService.getAuthorsByGenres(genres)
+                .stream()
+                .map(author -> convertAuthorToDTO(author))
+                .collect(Collectors.toList());
     }
 
     public AuthorDTO convertAuthorToDTO(Author author) {
