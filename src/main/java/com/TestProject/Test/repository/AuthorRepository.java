@@ -14,4 +14,5 @@ public interface AuthorRepository extends CrudRepository<Author, String> {
     public Iterable<Author> findAuthorByLastName(String lastName);
     public Iterable<Author> findByPublishingHouse(List<PublishingHouse> publishingHouses);
     public Iterable<Author> findByGenre(List<Genre> genres);
+    public void deleteById(Long id);
 }

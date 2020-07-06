@@ -77,14 +77,13 @@ public class BookResourseController {
 
     @ApiOperation(value = "Deleting book from repository",
                 notes = "Using DELETE Mapping, you can DELETE from repository book instance (Standart Root 'Library'). " +
-                        "Request Body must store the book you want to delete from repository",
+                        "by using book id in as param",
                 response = Contact.class)
 //    @RequestMapping(method = RequestMethod.DELETE, value = "/Library")
     @DeleteMapping(value = "/")
-    public void deleteBook(@ApiParam(value = "Takes a parameter - book instance (stored in Request Body) you want to delete")
-                               @RequestBody Book bookTodelete) {
+    public void deleteBook(@PathVariable long id) {
         try {
-            bookService.deleteBook(bookTodelete);
+            bookService.deleteBook(id);
         } catch (SourceNotFoundException e) {
             System.out.println("No such element");
         }

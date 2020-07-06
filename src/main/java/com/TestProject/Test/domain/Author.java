@@ -30,10 +30,18 @@ public class Author {
     @ManyToMany
     private List<Book> books;
 
-    public Author(Long id, String firstName, String lastName) {
-        this.id = id;
+    public Author(String firstName, String lastName) {
         this.firstName = firstName;
         this.lastName = lastName;
+    }
+
+    public Author(String firstName, String lastName, List<Genre> genre,
+                  List<PublishingHouse> publishingHouse, List<Book> books) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.genre = genre;
+        this.publishingHouse = publishingHouse;
+        this.books = books;
     }
 
     public Author() {

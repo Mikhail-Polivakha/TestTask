@@ -80,13 +80,13 @@ public class AuthorController {
     }
 
 
-    @DeleteMapping("/")
+    @DeleteMapping("/{id}")
     @ApiOperation(value = "Deleting Author from Repository",
             notes = "Using Delete Mapping, method takes the Author`s in Request Body, find the same " +
                     "object in the repository and drop it out",
             response = Contact.class)
-    public void deleteTheAuthorFromRepository(@RequestBody Author author) {
-        authorService.deleteAuthor(author);
+    public void deleteTheAuthorFromRepository(@PathVariable long id) {
+        authorService.deleteAuthor(id);
     }
 
     @PutMapping("/")
@@ -94,8 +94,8 @@ public class AuthorController {
             notes = "Using PUT Mapping, method update information about the author has the" +
                     "same id as Author Obeject, which was passed in Request Body",
             response = Contact.class)
-    public void updateTheAuthor(@RequestBody Author author) {
-        authorService.updateAuthor(author);
+    public void updateTheAuthor(@RequestBody AuthorDTO author) {
+        authorService.updateAuthor(modelMapper.map(author, Author.class));
     }
 
     @GetMapping("/getBypublishingHouses")

@@ -64,11 +64,11 @@ public class PublishingHouseController {
 
     @DeleteMapping("/")
     @ApiOperation(value = "Deleting Publishing House from the repository",
-            notes = "Using Delete Mapping, method takes in Request Body Publishing House as an Object. Method finds in the " +
-                    "repository this object and delete it from repository",
+            notes = "Using Delete Mapping, method takes as parameter id of publishingHouse you want to delete." +
+                    " Method finds in the repository this object using passed id and delete it from repository",
             response = Contact.class)
-    public void deletePublishingHouse(@RequestBody PublishingHouse publishingHouse) {
-        publishingHouseService.deletePublishigHouseFromRepository(publishingHouse);
+    public void deletePublishingHouse(@PathVariable long id) {
+        publishingHouseService.deletePublishingHouseFromRepository(id);
     }
 
     private PublishingHouseDTO convertPublishingHouseToDTO(PublishingHouse publishingHouse) {

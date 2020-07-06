@@ -11,4 +11,5 @@ public interface PublishingHouseRepository extends CrudRepository<PublishingHous
     public Iterable<PublishingHouse> findByLabel(String label);
     public Iterable<PublishingHouse> findByAuthors(List<Author> authors);
     public Iterable<PublishingHouse> findByGenres(List<Genre> genres);
+    public void deleteById(long id);
 }

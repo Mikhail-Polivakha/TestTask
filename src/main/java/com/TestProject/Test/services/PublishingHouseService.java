@@ -16,8 +16,6 @@ public class PublishingHouseService {
     @Autowired
     PublishingHouseRepository publishingHouseRepository;
 
-    //TODO: Implement method below to get all books by label of the publishing house
-
     public PublishingHouse getPublishingHouseById(int publishingHouseID) {
         return publishingHouseRepository.findById(publishingHouseID).orElse(new PublishingHouse());
     }
@@ -34,7 +32,7 @@ public class PublishingHouseService {
         publishingHouseRepository.save(publishingHouseRepository.findById(publishingHouseId).orElse(new PublishingHouse()));
     }
 
-    public void deletePublishigHouseFromRepository(PublishingHouse publishingHouse) {
-        publishingHouseRepository.delete(publishingHouse);
+    public void deletePublishingHouseFromRepository(long id) {
+        publishingHouseRepository.deleteById(id);
     }
 }

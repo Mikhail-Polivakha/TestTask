@@ -34,8 +34,8 @@ public class BookService {
         this.bookRepository.save(updatedBook);
     }
 
-    public void deleteBook(Book bookToDelete) throws SourceNotFoundException {
-        this.bookRepository.delete(bookToDelete);
+    public void deleteBook(long id) throws SourceNotFoundException {
+        this.bookRepository.deleteById(id);
     }
 
     public Book getBookByAuthors(List<Author> authors) {
