@@ -25,7 +25,7 @@ public class GenreController {
     @Autowired
     ModelMapper modelMapper;
 
-    @GetMapping("/name{name}")
+    @GetMapping("/name/{name}")
     @ApiOperation(value = "Searching whole Genres (Notes contains better explanation)",
             notes = "Using GET Mapping, method takes the return List<Genre> exist in DB",
             response = Contact.class)
@@ -72,7 +72,7 @@ public class GenreController {
         genreService.updateGenre(genre, genreId);
     }
 
-    @GetMapping("/getByGenres")
+    @GetMapping("/byGenres")
     @ApiOperation(value = "Getting whole Genres by using List<PublishingHouses>",
                 notes = "Using GET Mapping, method provides to fetch all the Genres declared in " +
                         "passed Publishing Houses (Inputs as List<PublishingHouses>)",
@@ -84,7 +84,7 @@ public class GenreController {
                 .collect(Collectors.toList());
     }
 
-    @GetMapping("/getByAuthors")
+    @GetMapping("/byAuthors")
     @ApiOperation(value = "Getting all Genres usage by some particular Authors",
                 notes = "Using GET Mapping, method provide to fetch Genres from repository have the same" +
                         "List<Author> passed in param. This Current method return List<GenreDTO>",

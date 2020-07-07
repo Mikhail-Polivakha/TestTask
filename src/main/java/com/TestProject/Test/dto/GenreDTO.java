@@ -1,5 +1,9 @@
 package com.TestProject.Test.dto;
 
+import com.TestProject.Test.domain.Author;
+import com.TestProject.Test.domain.Book;
+import com.TestProject.Test.domain.PublishingHouse;
+
 import java.util.List;
 
 public class GenreDTO {
@@ -8,9 +12,9 @@ public class GenreDTO {
 
     private String description;
 
-    private List<AuthorDTO> authors;
+    private List<Author> authors;
 
-    private List<PublishingHouseDTO> publishingHouses;
+    private List<PublishingHouse> publishingHouses;
 
-    private List<BookDTO> books;
+    private List<Book> books;
 }

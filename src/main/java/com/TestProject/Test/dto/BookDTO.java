@@ -1,14 +1,18 @@
 package com.TestProject.Test.dto;
 
+import com.TestProject.Test.domain.Author;
+import com.TestProject.Test.domain.Genre;
+import com.TestProject.Test.domain.PublishingHouse;
+
 import java.util.List;
 
 public class BookDTO {
 
     private String title;
 
-    private List<AuthorDTO> authors;
+    private List<Author> authors;
 
-    private List<GenreDTO> genres;
+    private List<Genre> genres;
 
-    private List<PublishingHouseDTO> publishingHouses;
+    private List<PublishingHouse> publishingHouses;
 }

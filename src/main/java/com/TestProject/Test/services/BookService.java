@@ -19,34 +19,34 @@ public class BookService {
     private BookRepository bookRepository;
 
     public List<Book> getAllBooks() {
-        return (List<Book>) this.bookRepository.findAll();
+        return (List<Book>) bookRepository.findAll();
     }
 
     public Book getBookById(String id) throws SourceNotFoundException {
-        return this.bookRepository.findById(String.valueOf(id)).orElse(new Book());
+        return bookRepository.findById(String.valueOf(id)).orElse(new Book());
     }
 
     public void saveBook(Book bookToSave) {
-        this.bookRepository.save(bookToSave);
+        bookRepository.save(bookToSave);
     }
 
     public void updateBook(Book updatedBook) {
-        this.bookRepository.save(updatedBook);
+        bookRepository.save(updatedBook);
     }
 
     public void deleteBook(long id) throws SourceNotFoundException {
-        this.bookRepository.deleteById(id);
+        bookRepository.deleteById(id);
     }
 
-    public Book getBookByAuthors(List<Author> authors) {
-        return this.bookRepository.findByAuthors(authors);
+    public List<Book> getBookByAuthors(List<Author> authors) {
+        return bookRepository.findByAuthors(authors);
     }
 
-    public Book getBookByGenres(List<Genre> genres) {
-        return this.bookRepository.findByGenres(genres);
+    public List<Book> getBookByGenres(List<Genre> genres) {
+        return bookRepository.findByGenres(genres);
     }
 
-    public Book getBookByPublishingHouses(List<PublishingHouse> publishingHouses) {
+    public List<Book> getBookByPublishingHouses(List<PublishingHouse> publishingHouses) {
         return this.bookRepository.findByPublishingHouses(publishingHouses);
     }
 }

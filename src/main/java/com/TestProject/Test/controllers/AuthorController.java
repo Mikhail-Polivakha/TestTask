@@ -4,6 +4,8 @@ import com.TestProject.Test.domain.Author;
 import com.TestProject.Test.domain.Genre;
 import com.TestProject.Test.domain.PublishingHouse;
 import com.TestProject.Test.dto.AuthorDTO;
+import com.TestProject.Test.dto.GenreDTO;
+import com.TestProject.Test.dto.PublishingHouseDTO;
 import com.TestProject.Test.services.AuthorService;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.models.Contact;
@@ -35,7 +37,7 @@ public class AuthorController {
                 .collect(Collectors.toList());
     }
 
-    @GetMapping("/id{id}")
+    @GetMapping("/id/{id}")
     @ApiOperation(value = "Searching Certain author by Author`s ID",
             notes = "Using GET Mapping, method takes the author`s id as PathVariable, and return" +
                     "Author, which has same id as passed",
@@ -46,7 +48,7 @@ public class AuthorController {
         return authorDTO;
     }
 
-    @GetMapping("/firstname{firstName}")
+    @GetMapping("/firstname/{firstName}")
     @ApiOperation(value = "Getting Authors by firstName",
             notes = "Using GET Mapping, method takes the author`s firstName as PathVariable, and return" +
                     "List<Author>, which has same firstName as passed",
@@ -58,7 +60,7 @@ public class AuthorController {
                 .collect(Collectors.toList());
     }
 
-    @GetMapping("/lastname{lastName}")
+    @GetMapping("/lastname/{lastName}")
     @ApiOperation(value = "Getting all Authors by using lastName",
             notes = "Using GET Mapping, method takes the Author`s lastName as PathVariable, and " +
                     "return List<Author> - all the Authors have the same LastName",
@@ -75,8 +77,10 @@ public class AuthorController {
             notes = "Using POST Mapping, method takes the Author Object in Request Body and save it in the" +
                     "repository",
             response = Contact.class)
-    public void addTheAuthor(@RequestBody Author author) {
-        authorService.addAuthorToTheBook(author);
+    public void addTheAuthor(@RequestBody AuthorDTO author) {
+        authorService.addAuthorToTheBook(
+                modelMapper.map(author, Author.class)
+        );
     }
 
 
@@ -103,8 +107,12 @@ public class AuthorController {
                 notes = "Using GET Mapping, method return the List of the Authors accomplish" +
                         "publishing in certain stuff of the PublishingHouses, given in the RequestBody",
                 response = Contact.class)
-    public List<AuthorDTO> getAuthorsByPublishingHouses(@RequestBody List<PublishingHouse> publishingHouses) {
-        return authorService.getAuthorsByPublishingHouses(publishingHouses)
+    public List<AuthorDTO> getAuthorsByPublishingHouses(@RequestBody List<PublishingHouseDTO> publishingHouses) {
+        List<PublishingHouse> publishingHousesToPass = publishingHouses
+                .stream()
+                .map(publishingHouseDTO -> modelMapper.map(publishingHouseDTO, PublishingHouse.class))
+                .collect(Collectors.toList());
+        return authorService.getAuthorsByPublishingHouses(publishingHousesToPass)
                 .stream()
                 .map(this::convertAuthorToDTO)
                 .collect(Collectors.toList());
@@ -116,16 +124,19 @@ public class AuthorController {
                         "List<Genre> in the Request Body. Return all the Authors have publications in" +
                         "passed Genres",
                 response = Contact.class)
-    public List<AuthorDTO> getAuthorsByGenres(@RequestBody List<Genre> genres) {
-        return authorService.getAuthorsByGenres(genres)
+    public List<AuthorDTO> getAuthorsByGenres(@RequestBody List<GenreDTO> genres) {
+        List<Genre> genresToPass = genres
                 .stream()
-                .map(author -> convertAuthorToDTO(author))
+                .map(genre -> modelMapper.map(genre, Genre.class))
+                .collect(Collectors.toList());
+        return authorService.getAuthorsByGenres(genresToPass)
+                .stream()
+                .map(this::convertAuthorToDTO)
                 .collect(Collectors.toList());
     }
-
-
 
     public AuthorDTO convertAuthorToDTO(Author author) {
         return modelMapper.map(author, AuthorDTO.class);
     }
+
 }

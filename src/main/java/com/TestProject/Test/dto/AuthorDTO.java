@@ -1,6 +1,9 @@
 package com.TestProject.Test.dto;
 
 import com.TestProject.Test.domain.Author;
+import com.TestProject.Test.domain.Book;
+import com.TestProject.Test.domain.Genre;
+import com.TestProject.Test.domain.PublishingHouse;
 
 import java.util.List;
 
@@ -9,11 +12,11 @@ public class AuthorDTO {
     
     private String lastName;
 
-    private List<GenreDTO> genre;
+    private List<Genre> genre;
 
-    private List<PublishingHouseDTO> publishingHouse;
+    private List<PublishingHouse> publishingHouse;
 
-    private List<BookDTO> books;
+    private List<Book> books;
 
     public String getFirstName() {
         return firstName;
@@ -32,27 +35,27 @@ public class AuthorDTO {
     }
 
 
-    public List<GenreDTO> getGenre() {
+    public List<Genre> getGenre() {
         return genre;
     }
 
-    public void setGenre(List<GenreDTO> genre) {
+    public void setGenre(List<Genre> genre) {
         this.genre = genre;
     }
 
-    public List<PublishingHouseDTO> getPublishingHouse() {
+    public List<PublishingHouse> getPublishingHouse() {
         return publishingHouse;
     }
 
-    public void setPublishingHouse(List<PublishingHouseDTO> publishingHouse) {
+    public void setPublishingHouse(List<PublishingHouse> publishingHouse) {
         this.publishingHouse = publishingHouse;
     }
 
-    public List<BookDTO> getBooks() {
+    public List<Book> getBooks() {
         return books;
     }
 
-    public void setBooks(List<BookDTO> books) {
+    public void setBooks(List<Book> books) {
         this.books = books;
     }
 }

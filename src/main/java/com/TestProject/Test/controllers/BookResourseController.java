@@ -3,6 +3,7 @@ package com.TestProject.Test.controllers;
 import com.TestProject.Test.domain.Author;
 import com.TestProject.Test.domain.Genre;
 import com.TestProject.Test.domain.PublishingHouse;
+import com.TestProject.Test.dto.AuthorDTO;
 import com.TestProject.Test.dto.BookDTO;
 import com.TestProject.Test.dto.GenreDTO;
 import com.TestProject.Test.dto.PublishingHouseDTO;
@@ -28,9 +29,6 @@ public class BookResourseController {
 
     @Autowired
     ModelMapper modelMapper;
-
-    //TODO: Expand the functional by getting, posing, deliting and e.t.c
-    // the book not from some source root 'Library', but from certain Library
 
 //    @RequestMapping(method = RequestMethod.GET, value = "/Library/{id}")
     @GetMapping(value = "/{id}")
@@ -71,8 +69,8 @@ public class BookResourseController {
 //    @RequestMapping(method = RequestMethod.POST, value = "/Library")
     @PostMapping(value = "/")
     public void saveBook(@ApiParam(value = "Takes a parameter - book instance (stored in request Body) you want to Save")
-                             @RequestBody Book book) {
-        bookService.saveBook(book);
+                             @RequestBody BookDTO book) {
+        bookService.saveBook(modelMapper.map(book, Book.class));
     }
 
     @ApiOperation(value = "Deleting book from repository",
@@ -98,44 +96,60 @@ public class BookResourseController {
                 response = Contact.class)
 //    @RequestMapping(method = RequestMethod.PUT, value = "/Lirary/{id}")
     @PutMapping(value = "/")
-    public void updateBookInformation(@RequestBody Book book) {
-        bookService.updateBook(book);
+    public void updateBookInformation(@RequestBody BookDTO book) {
+        bookService.updateBook(modelMapper.map(book, Book.class));
+    }
+
+    @GetMapping("/byAuthors")
+    @ApiOperation(value = "Get Certain book from repository using the Authors",
+            notes = "Using the GET Mapping, you can fetch certain book using the List<Author>" +
+                    "by calling getBookByAuthors() method from BookService Service",
+            response = Contact.class)
+    public List<BookDTO> getBookByAuthors(@RequestBody List<AuthorDTO> authors) {
+       List<Author> authorsToPass = authors
+               .stream()
+               .map(authorDTO -> modelMapper.map(authorDTO, Author.class))
+               .collect(Collectors.toList());
+       return bookService.getBookByAuthors(authorsToPass)
+               .stream()
+               .map(this::convertBookToDTO)
+               .collect(Collectors.toList());
+    }
+
+    @GetMapping("/byGenres")
+    @ApiOperation(value = "Get Certain book from repository using the Genres",
+            notes = "Using the GET Mapping, you can fetch certain book using the List<Genre>" +
+                    "by calling getBookByGenres() method from BookService Service",
+            response = Contact.class)
+    public List<BookDTO> getBookByGenres(@RequestBody List<GenreDTO> genres) {
+        List<Genre> gernresToPass = genres
+                .stream()
+                .map(genreDTO -> modelMapper.map(genreDTO, Genre.class))
+                .collect(Collectors.toList());
+        return bookService.getBookByGenres(gernresToPass)
+                .stream()
+                .map(this::convertBookToDTO)
+                .collect(Collectors.toList());
+    }
+
+    @GetMapping("/byPublishingHouses")
+    @ApiOperation(value = "Get Certain book from repository using the PublishingHouses",
+            notes = "Using the GET Mapping, you can fetch certain book using the List<PublishingHouse>" +
+                    "by calling getBookByPublishingHouses() method from BookService Service",
+            response = Contact.class)
+    public List<BookDTO> getBookByPublishingHouses(@RequestBody List<PublishingHouseDTO> publishingHouses) {
+        List<PublishingHouse> publishingHousesToPass = publishingHouses
+                .stream()
+                .map(publishingHouseDTO -> modelMapper.map(publishingHouseDTO, PublishingHouse.class))
+                .collect(Collectors.toList());
+        return bookService.getBookByPublishingHouses(publishingHousesToPass)
+                .stream()
+                .map(this::convertBookToDTO)
+                .collect(Collectors.toList());
     }
 
     private BookDTO convertBookToDTO(Book book) {
         return modelMapper.map(book, BookDTO.class);
     }
 
-    @GetMapping
-    @ApiOperation(value = "Get Certain book from repository using the Authors",
-            notes = "Using the GET Mapping, you can fetch certain book using the List<Author>" +
-                    "by calling getBookByAuthors() method from BookService Service",
-            response = Contact.class)
-    public BookDTO getBookByAuthors(@RequestBody List<Author> authors) {
-        return modelMapper.map(
-                this.bookService.getBookByAuthors(authors),
-                BookDTO.class);
-    }
-
-    @GetMapping
-    @ApiOperation(value = "Get Certain book from repository using the Genres",
-            notes = "Using the GET Mapping, you can fetch certain book using the List<Genre>" +
-                    "by calling getBookByGenres() method from BookService Service",
-            response = Contact.class)
-    public GenreDTO getBookByGenres(@RequestBody List<Genre> genres) {
-        return modelMapper.map(
-                this.bookService.getBookByGenres(genres),
-                GenreDTO.class);
-    }
-
-    @GetMapping
-    @ApiOperation(value = "Get Certain book from repository using the PublishingHouses",
-            notes = "Using the GET Mapping, you can fetch certain book using the List<PublishingHouse>" +
-                    "by calling getBookByPublishingHouses() method from BookService Service",
-            response = Contact.class)
-    public PublishingHouseDTO getBookByPublishingHouses(@RequestBody List<PublishingHouse> publishingHouses) {
-        return modelMapper.map(
-                this.bookService.getBookByPublishingHouses(publishingHouses),
-                PublishingHouseDTO.class);
-    }
 }

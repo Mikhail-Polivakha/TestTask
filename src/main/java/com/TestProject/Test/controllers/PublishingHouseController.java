@@ -22,7 +22,7 @@ public class PublishingHouseController {
     @Autowired
     ModelMapper modelMapper;
 
-    @GetMapping("/id{publishingHouseId}")
+    @GetMapping("/id/{publishingHouseId}")
     @ApiOperation(value = "Searching Publisher House by using the Publishing House`s id",
             notes = "Using GET Mapping, method takes the Publishing House`s id as PathVariable, and return" +
                     "PublishingHouse Object, which has same id as passed",
@@ -47,19 +47,21 @@ public class PublishingHouseController {
     @ApiOperation(value = "Saving Publishing House in the repository",
             notes = "Using POST Mapping, method save PublishingHouse object passed in the RequestBody in the Repository",
             response = Contact.class)
-    public void savePublisingHouse(@RequestBody PublishingHouse publishingHouse) {
-        publishingHouseService.savePublishingHouseInTheRepository(publishingHouse);
+    public void savePublisingHouse(@RequestBody PublishingHouseDTO publishingHouse) {
+        publishingHouseService.savePublishingHouseInTheRepository(
+                modelMapper.map(publishingHouse, PublishingHouse.class));
     }
 
-    @PutMapping("/id{publishingHouseId}")
+    @PutMapping("/id/{publishingHouseId}")
     @ApiOperation(value = "Updating Publishing House in the repository",
             notes = "Using PUT Mapping, method finds PublishingHouse object using id and " +
                     "resave this object using another Publishing House Object passed in the RequestBody. If Publishing House with" +
                     "passed id does not exist in repository, method create a new one object in repository with the same as passed " +
                     "Publishing House fields",
             response = Contact.class)
-    public void updatePublihsingHouseByID(@PathVariable int publishingHouseId, @RequestBody PublishingHouse publishingHouse) {
-        publishingHouseService.updatePublishingHouseByID(publishingHouse, publishingHouseId);
+    public void updatePublihsingHouseByID(@PathVariable int publishingHouseId, @RequestBody PublishingHouseDTO publishingHouse) {
+        publishingHouseService.updatePublishingHouseByID(
+                modelMapper.map(publishingHouse, PublishingHouse.class), publishingHouseId);
     }
 
     @DeleteMapping("/")
