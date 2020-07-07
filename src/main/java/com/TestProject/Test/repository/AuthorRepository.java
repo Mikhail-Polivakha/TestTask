@@ -5,10 +5,12 @@ import com.TestProject.Test.domain.Genre;
 import com.TestProject.Test.domain.PublishingHouse;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@Repository
 public interface AuthorRepository extends CrudRepository<Author, String> {
     public Iterable<Author> findAuthorByFirstName(String firstName);
     public Iterable<Author> findAuthorByLastName(String lastName);
