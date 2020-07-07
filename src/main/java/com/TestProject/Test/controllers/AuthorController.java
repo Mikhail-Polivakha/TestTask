@@ -31,10 +31,7 @@ public class AuthorController {
                 notes = "Using GET Mapping, method returns List<Authors> - all authors, exists in repository",
                 response = Contact.class)
     public List<AuthorDTO> getAllAuthors() {
-        return authorService.getAllAuthors()
-                .stream()
-                .map(this::convertAuthorToDTO)
-                .collect(Collectors.toList());
+        return authorService.getAllAuthors();
     }
 
     @GetMapping("/id/{id}")
@@ -42,10 +39,8 @@ public class AuthorController {
             notes = "Using GET Mapping, method takes the author`s id as PathVariable, and return" +
                     "Author, which has same id as passed",
             response = Contact.class)
-    public AuthorDTO getAuthorById(@PathVariable String id) {
-        AuthorDTO authorDTO = new AuthorDTO();
-        modelMapper.map(authorService.getAuthorById(id), authorDTO);
-        return authorDTO;
+    public AuthorDTO getAuthorById(@PathVariable long id) {
+        return authorService.getAuthorById(id);
     }
 
     @GetMapping("/firstname/{firstName}")
@@ -54,10 +49,7 @@ public class AuthorController {
                     "List<Author>, which has same firstName as passed",
             response = Contact.class)
     public List<AuthorDTO> getAllAuthorsByFirstName(@PathVariable String firstName) {
-        return authorService.getAuthorsByFirstName(firstName)
-                .stream()
-                .map(this::convertAuthorToDTO)
-                .collect(Collectors.toList());
+        return authorService.getAuthorsByFirstName(firstName);
     }
 
     @GetMapping("/lastname/{lastName}")
@@ -66,10 +58,7 @@ public class AuthorController {
                     "return List<Author> - all the Authors have the same LastName",
             response = Contact.class)
     public List<AuthorDTO> getAllAuthorsByLastName(@PathVariable String lastName) {
-        return authorService.getAuthoursByLastName(lastName)
-                .stream()
-                .map(this::convertAuthorToDTO)
-                .collect(Collectors.toList());
+        return authorService.getAuthoursByLastName(lastName);
     }
 
     @PostMapping("/")
@@ -108,14 +97,7 @@ public class AuthorController {
                         "publishing in certain stuff of the PublishingHouses, given in the RequestBody",
                 response = Contact.class)
     public List<AuthorDTO> getAuthorsByPublishingHouses(@RequestBody List<PublishingHouseDTO> publishingHouses) {
-        List<PublishingHouse> publishingHousesToPass = publishingHouses
-                .stream()
-                .map(publishingHouseDTO -> modelMapper.map(publishingHouseDTO, PublishingHouse.class))
-                .collect(Collectors.toList());
-        return authorService.getAuthorsByPublishingHouses(publishingHousesToPass)
-                .stream()
-                .map(this::convertAuthorToDTO)
-                .collect(Collectors.toList());
+        return authorService.getAuthorsByPublishingHouses(publishingHouses);
     }
 
     @GetMapping("/getBygenres")
@@ -125,14 +107,7 @@ public class AuthorController {
                         "passed Genres",
                 response = Contact.class)
     public List<AuthorDTO> getAuthorsByGenres(@RequestBody List<GenreDTO> genres) {
-        List<Genre> genresToPass = genres
-                .stream()
-                .map(genre -> modelMapper.map(genre, Genre.class))
-                .collect(Collectors.toList());
-        return authorService.getAuthorsByGenres(genresToPass)
-                .stream()
-                .map(this::convertAuthorToDTO)
-                .collect(Collectors.toList());
+        return authorService.getAuthorsByGenres(genres);
     }
 
     public AuthorDTO convertAuthorToDTO(Author author) {
