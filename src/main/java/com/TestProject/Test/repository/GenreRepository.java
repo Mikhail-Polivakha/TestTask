@@ -12,4 +12,5 @@ import java.util.List;
 public interface GenreRepository extends CrudRepository<Genre, Integer> {
     public Iterable<Genre> findByPublishingHouses(List<PublishingHouse> publishingHouses);
     public Iterable<Genre> findByAuthors(List<Author> authors);
+    public Genre findById(long id);
 }

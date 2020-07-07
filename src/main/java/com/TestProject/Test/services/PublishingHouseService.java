@@ -1,14 +1,14 @@
 package com.TestProject.Test.services;
 
-import com.TestProject.Test.domain.Book;
 import com.TestProject.Test.domain.PublishingHouse;
-import com.TestProject.Test.repository.BookRepository;
+import com.TestProject.Test.dto.PublishingHouseDTO;
 import com.TestProject.Test.repository.PublishingHouseRepository;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class PublishingHouseService {
@@ -16,23 +16,31 @@ public class PublishingHouseService {
     @Autowired
     PublishingHouseRepository publishingHouseRepository;
 
-    public PublishingHouse getPublishingHouseById(int publishingHouseID) {
-        return publishingHouseRepository.findById(publishingHouseID).orElse(new PublishingHouse());
+    @Autowired
+    ModelMapper modelMapper;
+
+    public PublishingHouseDTO getPublishingHouseById(long publishingHouseID) {
+        return modelMapper.map(publishingHouseRepository.findById(publishingHouseID), PublishingHouseDTO.class);
     }
 
-    public List<PublishingHouse> getAllPubishingHouses() {
-        return (List<PublishingHouse>) publishingHouseRepository.findAll();
+    public List<PublishingHouseDTO> getAllPublishingHouses() {
+        List<PublishingHouse> respond = (List<PublishingHouse>) publishingHouseRepository.findAll();
+        return respond.stream().map(this::convertPublishingHouseToDTO).collect(Collectors.toList());
     }
 
-    public void savePublishingHouseInTheRepository(PublishingHouse publishingHouse) {
-        publishingHouseRepository.save(publishingHouse);
+    public void savePublishingHouseInTheRepository(PublishingHouseDTO publishingHouse) {
+        publishingHouseRepository.save(modelMapper.map(publishingHouse, PublishingHouse.class));
     }
 
-    public void updatePublishingHouseByID(PublishingHouse publishingHouse, int publishingHouseId) {
-        publishingHouseRepository.save(publishingHouseRepository.findById(publishingHouseId).orElse(new PublishingHouse()));
+    public void updatePublishingHouse(PublishingHouseDTO publishingHouse) {
+        publishingHouseRepository.save(modelMapper.map(publishingHouse, PublishingHouse.class));
     }
 
     public void deletePublishingHouseFromRepository(long id) {
         publishingHouseRepository.deleteById(id);
+    }
+
+    private PublishingHouseDTO convertPublishingHouseToDTO(PublishingHouse publishingHouse) {
+        return modelMapper.map(publishingHouse, PublishingHouseDTO.class);
     }
 }

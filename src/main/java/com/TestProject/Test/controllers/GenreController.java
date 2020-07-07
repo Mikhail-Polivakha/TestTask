@@ -3,7 +3,9 @@ package com.TestProject.Test.controllers;
 import com.TestProject.Test.domain.Author;
 import com.TestProject.Test.domain.Genre;
 import com.TestProject.Test.domain.PublishingHouse;
+import com.TestProject.Test.dto.AuthorDTO;
 import com.TestProject.Test.dto.GenreDTO;
+import com.TestProject.Test.dto.PublishingHouseDTO;
 import com.TestProject.Test.services.GenreService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -30,19 +32,16 @@ public class GenreController {
             notes = "Using GET Mapping, method takes the return List<Genre> exist in DB",
             response = Contact.class)
     public List<GenreDTO> getAllGenres() {
-        return genreService.getAllGenres()
-                .stream()
-                .map(this::convertGenreToDTO)
-                .collect(Collectors.toList());
+        return genreService.getAllGenres();
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/{genreId}")
     @ApiOperation(value = "Searching certain genre by genreId",
                 notes = "Uisng GET Mapping, method finds certain genre using genreID and return" +
                         "Genre object",
                 response = Contact.class)
-    public GenreDTO getCertianGenre(@RequestBody Genre genre, @PathVariable int genreID) {
-        return modelMapper.map(genreService.getGenre(genre, genreID), GenreDTO.class);
+    public GenreDTO getCertainGenre(@PathVariable long genreId) {
+        return genreService.getGenre(genreId);
     }
 
     @DeleteMapping("/{genreId}")
@@ -64,12 +63,12 @@ public class GenreController {
 
     @PutMapping("/{id}")
     @ApiOperation(value = "Update certain genre in repository",
-            notes = "Using PUT Mapping, method takes in Request Body Genre object and genreId you want to" +
-                    "resave. If passed Genre object exist in repository (finds by ID), method resave it. Ohterwise" +
+            notes = "Using PUT Mapping, method takes in Request Body Genre object you want to" +
+                    "resave. If passed Genre object exist in repository, method resave it. Ohterwise" +
                     "new Genre object will be created with the same fields, as passed Genre Object",
             response = Contact.class)
-    public void updateGenre(@RequestBody Genre genre, int genreId) {
-        genreService.updateGenre(genre, genreId);
+    public void updateGenre(@RequestBody Genre genre) {
+        genreService.updateGenre(genre);
     }
 
     @GetMapping("/byGenres")
@@ -77,11 +76,8 @@ public class GenreController {
                 notes = "Using GET Mapping, method provides to fetch all the Genres declared in " +
                         "passed Publishing Houses (Inputs as List<PublishingHouses>)",
                 response = Contact.class)
-    public List<GenreDTO> getGenresByPublishingHouses(List<PublishingHouse> publishingHouses) {
-        return genreService.getGenresByPublishingHouses(publishingHouses)
-                .stream()
-                .map(genre -> convertGenreToDTO(genre))
-                .collect(Collectors.toList());
+    public List<GenreDTO> getGenresByPublishingHouses(List<PublishingHouseDTO> publishingHouses) {
+        return genreService.getGenresByPublishingHouses(publishingHouses);
     }
 
     @GetMapping("/byAuthors")
@@ -89,11 +85,8 @@ public class GenreController {
                 notes = "Using GET Mapping, method provide to fetch Genres from repository have the same" +
                         "List<Author> passed in param. This Current method return List<GenreDTO>",
                 response = Contact.class)
-    public List<GenreDTO> getGenreByAuthors(List<Author> authors) {
-        return genreService.getGenreByAuthor(authors)
-                .stream()
-                .map(genre -> convertGenreToDTO(genre))
-                .collect(Collectors.toList());
+    public List<GenreDTO> getGenreByAuthors(List<AuthorDTO> authors) {
+        return genreService.getGenreByAuthor(authors);
     }
 
     private GenreDTO convertGenreToDTO(Genre genre) {

@@ -10,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/publishingHouses")
@@ -27,9 +26,8 @@ public class PublishingHouseController {
             notes = "Using GET Mapping, method takes the Publishing House`s id as PathVariable, and return" +
                     "PublishingHouse Object, which has same id as passed",
             response = Contact.class)
-    public PublishingHouseDTO getPublishingHouseById(@PathVariable int publishingHouseID) {
-        return modelMapper.map(publishingHouseService.getPublishingHouseById(publishingHouseID),
-                PublishingHouseDTO.class);
+    public PublishingHouseDTO getPublishingHouseById(@PathVariable int publishingHouseId) {
+        return publishingHouseService.getPublishingHouseById(publishingHouseId);
     }
 
     @GetMapping("/")
@@ -37,10 +35,7 @@ public class PublishingHouseController {
             notes = "Using GET Mapping, method return List<PublishingHouses> exists in the Repository",
             response = Contact.class)
     public List<PublishingHouseDTO> getAllPublishingHouses() {
-        return publishingHouseService.getAllPubishingHouses()
-                .stream()
-                .map(this::convertPublishingHouseToDTO)
-                .collect(Collectors.toList());
+        return publishingHouseService.getAllPublishingHouses();
     }
 
     @PostMapping("/")
@@ -48,20 +43,17 @@ public class PublishingHouseController {
             notes = "Using POST Mapping, method save PublishingHouse object passed in the RequestBody in the Repository",
             response = Contact.class)
     public void savePublisingHouse(@RequestBody PublishingHouseDTO publishingHouse) {
-        publishingHouseService.savePublishingHouseInTheRepository(
-                modelMapper.map(publishingHouse, PublishingHouse.class));
+        publishingHouseService.savePublishingHouseInTheRepository(publishingHouse);
     }
 
-    @PutMapping("/id/{publishingHouseId}")
+    @PutMapping("/")
     @ApiOperation(value = "Updating Publishing House in the repository",
-            notes = "Using PUT Mapping, method finds PublishingHouse object using id and " +
-                    "resave this object using another Publishing House Object passed in the RequestBody. If Publishing House with" +
+            notes = "Using PUT Mapping, method finds PublishingHouse object and resave this object using another Publishing House Object passed in the RequestBody. If Publishing House with" +
                     "passed id does not exist in repository, method create a new one object in repository with the same as passed " +
                     "Publishing House fields",
             response = Contact.class)
-    public void updatePublihsingHouseByID(@PathVariable int publishingHouseId, @RequestBody PublishingHouseDTO publishingHouse) {
-        publishingHouseService.updatePublishingHouseByID(
-                modelMapper.map(publishingHouse, PublishingHouse.class), publishingHouseId);
+    public void updatePublihsingHouse(@RequestBody PublishingHouseDTO publishingHouse) {
+        publishingHouseService.updatePublishingHouse(publishingHouse);
     }
 
     @DeleteMapping("/")
