@@ -67,9 +67,7 @@ public class AuthorController {
                     "repository",
             response = Contact.class)
     public void addTheAuthor(@RequestBody AuthorDTO author) {
-        authorService.addAuthorToTheBook(
-                modelMapper.map(author, Author.class)
-        );
+        authorService.addAuthorToTheBook(author);
     }
 
 
@@ -88,7 +86,7 @@ public class AuthorController {
                     "same id as Author Obeject, which was passed in Request Body",
             response = Contact.class)
     public void updateTheAuthor(@RequestBody AuthorDTO author) {
-        authorService.updateAuthor(modelMapper.map(author, Author.class));
+        authorService.updateAuthor(author);
     }
 
     @GetMapping("/getBypublishingHouses")

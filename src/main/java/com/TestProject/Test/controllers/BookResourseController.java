@@ -38,12 +38,8 @@ public class BookResourseController {
                 response = Contact.class)
         public BookDTO getBook(@ApiParam(value = "Input the book ID (String type) the book you want to retrieve",
                         required = true)
-            @PathVariable String id) {
-        try {
-            return modelMapper.map(bookService.getBookById(id), BookDTO.class);
-        } catch (SourceNotFoundException e) {
-            return new BookDTO();
-        }
+            @PathVariable long id) {
+        return bookService.getBookById(id);
     }
 
     @ApiOperation(value = "Getting all books from repoitory",
@@ -54,10 +50,7 @@ public class BookResourseController {
 //    @RequestMapping(method = RequestMethod.GET, value = "/Library")
     @GetMapping(value = "/")
     public List<BookDTO> getAllbooks() {
-        return bookService.getAllBooks()
-                .stream()
-                .map(this::convertBookToDTO)
-                .collect(Collectors.toList());
+        return bookService.getAllBooks();
     }
 
 
@@ -70,7 +63,7 @@ public class BookResourseController {
     @PostMapping(value = "/")
     public void saveBook(@ApiParam(value = "Takes a parameter - book instance (stored in request Body) you want to Save")
                              @RequestBody BookDTO book) {
-        bookService.saveBook(modelMapper.map(book, Book.class));
+        bookService.saveBook(book);
     }
 
     @ApiOperation(value = "Deleting book from repository",
@@ -80,11 +73,7 @@ public class BookResourseController {
 //    @RequestMapping(method = RequestMethod.DELETE, value = "/Library")
     @DeleteMapping(value = "/")
     public void deleteBook(@PathVariable long id) {
-        try {
-            bookService.deleteBook(id);
-        } catch (SourceNotFoundException e) {
-            System.out.println("No such element");
-        }
+        bookService.deleteBook(id);
     }
 
     @ApiOperation(value = "Updating book fields",
@@ -97,7 +86,7 @@ public class BookResourseController {
 //    @RequestMapping(method = RequestMethod.PUT, value = "/Lirary/{id}")
     @PutMapping(value = "/")
     public void updateBookInformation(@RequestBody BookDTO book) {
-        bookService.updateBook(modelMapper.map(book, Book.class));
+        bookService.updateBook(book);
     }
 
     @GetMapping("/byAuthors")
@@ -106,14 +95,7 @@ public class BookResourseController {
                     "by calling getBookByAuthors() method from BookService Service",
             response = Contact.class)
     public List<BookDTO> getBookByAuthors(@RequestBody List<AuthorDTO> authors) {
-       List<Author> authorsToPass = authors
-               .stream()
-               .map(authorDTO -> modelMapper.map(authorDTO, Author.class))
-               .collect(Collectors.toList());
-       return bookService.getBookByAuthors(authorsToPass)
-               .stream()
-               .map(this::convertBookToDTO)
-               .collect(Collectors.toList());
+       return bookService.getBookByAuthors(authors);
     }
 
     @GetMapping("/byGenres")
@@ -122,14 +104,7 @@ public class BookResourseController {
                     "by calling getBookByGenres() method from BookService Service",
             response = Contact.class)
     public List<BookDTO> getBookByGenres(@RequestBody List<GenreDTO> genres) {
-        List<Genre> gernresToPass = genres
-                .stream()
-                .map(genreDTO -> modelMapper.map(genreDTO, Genre.class))
-                .collect(Collectors.toList());
-        return bookService.getBookByGenres(gernresToPass)
-                .stream()
-                .map(this::convertBookToDTO)
-                .collect(Collectors.toList());
+        return bookService.getBookByGenres(genres);
     }
 
     @GetMapping("/byPublishingHouses")
@@ -138,14 +113,7 @@ public class BookResourseController {
                     "by calling getBookByPublishingHouses() method from BookService Service",
             response = Contact.class)
     public List<BookDTO> getBookByPublishingHouses(@RequestBody List<PublishingHouseDTO> publishingHouses) {
-        List<PublishingHouse> publishingHousesToPass = publishingHouses
-                .stream()
-                .map(publishingHouseDTO -> modelMapper.map(publishingHouseDTO, PublishingHouse.class))
-                .collect(Collectors.toList());
-        return bookService.getBookByPublishingHouses(publishingHousesToPass)
-                .stream()
-                .map(this::convertBookToDTO)
-                .collect(Collectors.toList());
+        return bookService.getBookByPublishingHouses(publishingHouses);
     }
 
     private BookDTO convertBookToDTO(Book book) {

@@ -38,16 +38,16 @@ public class AuthorService {
         return modelMapper.map(respond, AuthorDTO.class);
     }
 
-    public void addAuthorToTheBook(Author author) {
-        authorRepository.save(author);
+    public void addAuthorToTheBook(AuthorDTO author) {
+        authorRepository.save(modelMapper.map(author, Author.class));
     }
 
     public void deleteAuthor(long id) {
         authorRepository.deleteById(id);
     }
 
-    public void updateAuthor(Author author) {
-        authorRepository.save(author);
+    public void updateAuthor(AuthorDTO author) {
+        authorRepository.save(modelMapper.map(author, Author.class));
     }
 
     public List<AuthorDTO> getAuthorsByFirstName(String firstName) {

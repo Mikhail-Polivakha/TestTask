@@ -8,6 +8,8 @@ import java.util.List;
 
 public class BookDTO {
 
+    private Long id;
+
     private String title;
 
     private List<Author> authors;

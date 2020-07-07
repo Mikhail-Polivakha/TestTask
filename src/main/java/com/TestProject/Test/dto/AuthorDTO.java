@@ -8,6 +8,9 @@ import com.TestProject.Test.domain.PublishingHouse;
 import java.util.List;
 
 public class AuthorDTO {
+
+    private Long id;
+
     private String firstName;
     
     private String lastName;

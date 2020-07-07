@@ -8,6 +8,8 @@ import java.util.List;
 
 public class PublishingHouseDTO {
 
+    private Long id;
+
     private List<Book> books;
 
     private List<Genre> genres;
