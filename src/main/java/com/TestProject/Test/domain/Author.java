@@ -21,28 +21,23 @@ public class Author {
     @ApiModelProperty(notes = "LastName of the author")
     private String lastName;
 
-    @ManyToMany
-    private List<Genre> genre;
+    @OneToMany
+    private List<String> genreNames;
+    
+    @OneToMany
+    private List<Long> genreId;
+        
+    @OneToMany
+    private List<String> bookTitles;
 
-    @ManyToMany
-    private List<PublishingHouse> publishingHouse;
-
-    @ManyToMany
-    private List<Book> books;
-
-    public Author(String firstName, String lastName) {
-        this.firstName = firstName;
-        this.lastName = lastName;
-    }
-
-    public Author(String firstName, String lastName, List<Genre> genre,
-                  List<PublishingHouse> publishingHouse, List<Book> books) {
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.genre = genre;
-        this.publishingHouse = publishingHouse;
-        this.books = books;
-    }
+    @OneToMany
+    private List<Long> booksId;
+    
+    @OneToMany
+    private List<String> publishingHouseTitle;
+    
+    @OneToMany
+    private List<Long> publishingHouseId;
 
     public Author() {
     }

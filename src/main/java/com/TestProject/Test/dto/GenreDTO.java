@@ -14,9 +14,17 @@ public class GenreDTO {
 
     private String description;
 
-    private List<Author> authors;
+    private List<Long> authorsId;
+    
+    private List<String> authorsNames;
+    
+    private List<String> authorLastnames;
+    
+    private List<String> publishingHouseTitle;
+    
+    private List<Long> publishingHouseId;
+    
+    private List<String> bookTitles;
 
-    private List<PublishingHouse> publishingHouses;
-
-    private List<Book> books;
+    private List<Long> booksId;
 }

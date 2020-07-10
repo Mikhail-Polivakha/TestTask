@@ -12,9 +12,17 @@ public class BookDTO {
 
     private String title;
 
-    private List<Author> authors;
+    private List<Long> authorsId;
+    
+    private List<String> authorsNames;
+    
+    private List<String> authorLastnames;
 
-    private List<Genre> genres;
-
-    private List<PublishingHouse> publishingHouses;
+    private List<String> genreNames;
+    
+    private List<Long> genreId;
+    
+    private List<String> publishingHouseTitle;
+    
+    private List<Long> publishingHouseId;
 }

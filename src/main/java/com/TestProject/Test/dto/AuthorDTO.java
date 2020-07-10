@@ -15,50 +15,17 @@ public class AuthorDTO {
     
     private String lastName;
 
-    private List<Genre> genre;
+    private List<String> genreNames;
+    
+    private List<Long> genreId;
+        
+    private List<String> bookTitles;
 
-    private List<PublishingHouse> publishingHouse;
-
-    private List<Book> books;
-
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
+    private List<Long> booksId;
+    
+    private List<String> publishingHouseTitle;
+    
+    private List<Long> publishingHouseId;
 
 
-    public List<Genre> getGenre() {
-        return genre;
-    }
-
-    public void setGenre(List<Genre> genre) {
-        this.genre = genre;
-    }
-
-    public List<PublishingHouse> getPublishingHouse() {
-        return publishingHouse;
-    }
-
-    public void setPublishingHouse(List<PublishingHouse> publishingHouse) {
-        this.publishingHouse = publishingHouse;
-    }
-
-    public List<Book> getBooks() {
-        return books;
-    }
-
-    public void setBooks(List<Book> books) {
-        this.books = books;
-    }
 }

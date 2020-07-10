@@ -21,12 +21,24 @@ public class Genre {
     @ApiModelProperty(notes = "Description of the Genre (Bullshit mostly, but I have to append some field)")
     public String description;
 
-    @ManyToMany
-    private List<Author> authors;
+    @OneToMany
+    private List<Long> authorsId;
+    
+    @OneToMany
+    private List<String> authorsNames;
+    
+    @OneToMany
+    private List<String> authorLastnames;
+    
+    @OneToMany
+    private List<String> publishingHouseTitle;
+    
+    @OneToMany
+    private List<Long> publishingHouseId;
 
-    @ManyToMany
-    private List<PublishingHouse> publishingHouses;
-
-    @ManyToMany
-    private List<Book> books;
+    @OneToMany
+    private List<String> bookTitles;
+    
+    @OneToMany
+    private List<Long> booksId;
 }

@@ -10,12 +10,20 @@ public class PublishingHouseDTO {
 
     private Long id;
 
-    private List<Book> books;
+    private List<String> bookTitles;
 
-    private List<Genre> genres;
-
-    private List<Author> authors;
-
+    private List<Long> booksId;
+    
+    private List<String> genreNames;
+    
+    private List<Long> genreId;
+    
+    private List<Long> authorsId;
+    
+    private List<String> authorsNames;
+    
+    private List<String> authorLastnames;
+    
     private String label;
 
     private String description;
